@@ -139,24 +139,24 @@ function checkIfImageExists(url, callback) {
 const serverList = [
     {
         id: "pf2Sandbox",
-        name: "OAK TOWN | PF2 SANDBOX",
+        name: "OAK TOWN | PF2 SANDBOX | SV_CHEATS ENABLED",
         ip: "play.oaktown.cc:27253",
         game: "hl2dm",
         overrideGame: "pf2"
     },
     {
         id: "pf2normal",
-        name: "OAK TOWN | CUSTOM MAP AND SHIT | NOT SANDBOX",
+        name: "OAK TOWN | PF2",
         ip: "play.oaktown.cc:8081",
         game: "hl2dm",
         overrideGame: "pf2"
     },
-    {
+    /*{
         id: "tf2rf",
         name: "OAK TOWN | Risk Fortress 2",
         ip: "play.oaktown.cc:20024",
         game: "tf2"
-    },
+    },*/
     {
         id: "teamFortress2",
         name: "OAK TOWN | TF2",
@@ -170,7 +170,7 @@ const serverList = [
         game: "hl2dm",
         overrideGame: "of"
     },
-    {
+    /*{
         id: "lfe",
         name: "OAK TOWN | LAMBDA FORTRESS EXTENDED",
         ip: "play.oaktown.cc:27312",
@@ -183,7 +183,7 @@ const serverList = [
         ip: "45.20.117.13:27015",
         game: "hl2dm",
         overrideGame: "gmod"
-    },
+    },*/
     {
         id: "counterStrike",
         name: "OAK TOWN | CSS",
@@ -201,9 +201,9 @@ const serverList = [
     },*/
     {
         id: "minecraftSurvival",
-        name: "OAK TOWN | SURVIVAL",
+        name: "OAK TOWN | MINECRAFT SURVIVAL",
         ip: "play.oaktown.cc:25572",
-        overrideMap: "NM_world",
+        overrideMap: "oaktown",
         game: "minecraft"
     },
     /*
@@ -224,9 +224,9 @@ const serverList = [
     },*/
     {
         id: "minecraftAnarchy",
-        name: "OAK TOWN | ANARCHY",
+        name: "OAK TOWN | MINECRAFT ANARCHY",
         ip: "play.oaktown.cc:25124",
-        overrideMap: "oaktown_creative",
+        overrideMap: "ot_anarchy",
         game: "minecraft"
     },
     /*
