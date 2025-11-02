@@ -1,5 +1,5 @@
 # oaktown website
-source code for the [https://oaktown.cc](oaktown.cc) website.
+source code for the https://oaktown.cc website.
 
 to run locally use:
 ```sh
