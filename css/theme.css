@@ -35,30 +35,6 @@ body {
   padding: 0;
 }
 
-/* big logo */
-.oak-text {
-  position: relative;
-  z-index: 2;
-  left: 70px;
-}
-
-.oak-cube {
-  position: relative;
-  z-index: 1;
-  right: 50px;
-  bottom: 60px;
-}
-
-@media (max-width: 446px) {
-  /* must make a sacrifice */
-  .oak-text {
-    left: unset;
-  }
-  .oak-cube {
-    display: none;
-  }
-}
-
 /* grid */
 .grid-container {
   display: grid;
@@ -174,7 +150,12 @@ stolen from redchanit
   text-decoration: unset;
 }
 
+.mobileOnly {
+  display: none;
+}
+
 @media (max-width: 465px) {
+
   #servers {
     grid-template-columns: 1fr;
   }
@@ -420,4 +401,38 @@ a:active {
 }
 .center-text {
   text-align: center;
+}
+
+.oaktown-gif {
+  height: 200px;
+  width: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.discord-widget {
+  width: 350px;
+  height: 490px;
+  transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 768px) {
+  .oaktown-gif {
+    height: 150px;
+    width: auto;
+  }
+  .discord-widget {
+    width: 300px;
+    height: 420px;
+  }
+  .mobileOnly {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .discord-widget {
+    width: 260px;
+    height: 380px;
+  }
 }

@@ -11,14 +11,19 @@
 <link rel="stylesheet" href="/css/theme.css"/>
 
 <script src="/widget/widget.js"></script>
+<script src="js/topnav.js"></script>
 
 <link rel="icon" type="image/png" href="/assets/oak.png">
 <title>oak town | ABOUT</title>
 </head>
 <body>
-<!-- top nav test lolololol-->
-<div class="topnav center-div">
+<!-- top nav test lolololol -->
+<div class="topnav" id="navbar">
   <a class="logo" href="/"><img src="/assets/wordmark.png"></a>
+  <div class="mobileOnly">
+    <a href="javascript:void(0);" class="icon" id="mobileMenu" onclick="toggleMenu()">$</a>
+    <br><br><br>
+  </div>
   <a class="topnavbutton" href="/">home</a>
   <a class="topnavbutton" href="/servers.html">servers</a>
   <a class="topnavbutton" href="/about.html">about</a>

@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="/css/theme.css"/>
+    <script src="js/topnav.js"></script>
 
     <script src="/js/jquery-3.6.2.min.js"></script>
 
@@ -22,8 +23,12 @@
 </head>
 <body>
 <!-- top nav -->
-<div class="topnav center-div">
+<div class="topnav" id="navbar">
   <a class="logo" href="/"><img src="/assets/wordmark.png"></a>
+  <div class="mobileOnly">
+    <a href="javascript:void(0);" class="icon" id="mobileMenu" onclick="toggleMenu()">$</a>
+    <br><br><br>
+  </div>
   <a class="topnavbutton" href="/">home</a>
   <a class="topnavbutton" href="/servers.html">servers</a>
   <a class="topnavbutton" href="/about.html">about</a>

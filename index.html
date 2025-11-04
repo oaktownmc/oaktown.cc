@@ -10,14 +10,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" href="/css/theme.css"/>
+<script src="js/topnav.js"></script>
 
 <link rel="icon" type="image/png" href="/assets/oak.png">
 <title>oak town | HOME</title>
 </head>
 <body>
 <!-- top nav -->
-<div class="topnav center-div">
+<div class="topnav" id="navbar">
   <a class="logo" href="/"><img src="/assets/wordmark.png"></a>
+  <div class="mobileOnly">
+    <a href="javascript:void(0);" class="icon" id="mobileMenu" onclick="toggleMenu()">$</a>
+    <br><br><br>
+  </div>
   <a class="topnavbutton" href="/">home</a>
   <a class="topnavbutton" href="/servers.html">servers</a>
   <a class="topnavbutton" href="/about.html">about</a>
@@ -38,7 +43,7 @@
 
 <div class="center-text" style="margin-inline: auto;">
   <h1>WELCOME TO</h1>
-  <img src="/assets/oaktown.gif" height="200px">
+  <img src="/assets/oaktown.gif" class="oaktown-gif">
 
   <p>We are a network of gaming servers that focuses on bringing you the best experience!</p>
   <h3 style="font-size: x-large;">
@@ -58,13 +63,13 @@
       <!-- oh my god just fucking align -->
       <h3>Discord</h3>
       <div class="center-div">
-		  <iframe 
-			src="https://discord.com/widget?id=1142534693955317791&theme=dark"
-			width="350"
-			height="490"
-			allowtransparency="true"
-			frameborder="0" 
-			sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+        <iframe
+          src="https://discord.com/widget?id=1142534693955317791&theme=dark"
+          class="discord-widget"
+          allowtransparency="true"
+          frameborder="0"
+          sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
+        </iframe>
       </div>
     </div>
     <div class="grid-item-unmargin">
