@@ -7,10 +7,10 @@ Math.degrees = (radians) => radians * 180 / Math.PI;
 
 // static canvas generator
 let overlayImage = new Image();
-overlayImage.src = "/assets/oaktown.png";
+overlayImage.src = "/assets/wordmark.png";
 
 const [WIDTH, HEIGHT] = [480, 270];
-const SCALE_FACTOR = 0.5;
+const SCALE_FACTOR = 0.45;
 
 // shouldDrawStatic is a function that returns a boolean 
 function doServerStatic(img, can, shouldDrawStatic = () => true) {
