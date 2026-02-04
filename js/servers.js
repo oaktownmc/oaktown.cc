@@ -168,7 +168,7 @@ const serverList = [
 		name: "OAK TOWN | TEAM FORTRESS 2 CLASSIFIED",
 		ip: "play.oaktown.cc:51201",
 		game: "tf2",
-		overrideGame: "tf2c"
+		overrideGame: "tf2classic"
     {
         id: "openFortress",
         name: "OAK TOWN | OPEN FORTRESS",
