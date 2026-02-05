@@ -12,57 +12,57 @@ overlayImage.src = "/assets/wordmark.png";
 const [WIDTH, HEIGHT] = [480, 270];
 const SCALE_FACTOR = 0.45;
 
-// shouldDrawStatic is a function that returns a boolean 
+// shouldDrawStatic is a function that returns a boolean
 function doServerStatic(img, can, shouldDrawStatic = () => true) {
     const rotation = Math.random() * (Math.PI / 4) - Math.radians(45 / 2);
-    
+
     can.width = WIDTH;
     can.height = HEIGHT;
 
     //img.width = WIDTH;
     //img.height = HEIGHT;
-    
+
     img.insertAdjacentElement("afterend", can);
-    
+
     let ctx = can.getContext("2d", { alpha: false });       // context without alpha channel.
     let idata = ctx.createImageData(can.width, can.height); // create image data
     let buffer32 = new Uint32Array(idata.data.buffer);  // get 32-bit view
-    
+
     function resetTransform(ctx) {
         ctx.setTransform(1, 0, 0, 1, 0, 0);
     }
-    
+
     // draw a debug crosshair
     function drawCrosshair(ctx) {
         let middleX = can.width / 2;
         let middleY = can.height / 2;
-        
+
         ctx.lineWidth = 5;
         ctx.strokeStyle = "red";
-        
+
         // horizontal
         ctx.beginPath();
         ctx.moveTo(0, middleY);
         ctx.lineTo(can.width, middleY);
         ctx.stroke();
-        
+
         // vertical
         ctx.beginPath();
         ctx.moveTo(middleX, 0);
         ctx.lineTo(middleX, can.height);
         ctx.stroke();
     }
-    
+
     function noise(ctx) {
         let len = buffer32.length;
         while(len--) buffer32[len] = Math.random() < 0.5 ? 0 : -1>>0;
         ctx.putImageData(idata, 0, 0);
     }
-    
+
     function circle(ctx, x, y, radius) {
         ctx.ellipse(x, y, radius, radius, 0, 0, 2 * Math.PI, false);
     }
-    
+
     function frame() {
         requestAnimationFrame(frame);
         if (!shouldDrawStatic()) {
@@ -70,20 +70,20 @@ function doServerStatic(img, can, shouldDrawStatic = () => true) {
             img.style.display = "";
             return;
         }
-        
+
         // Clear the canvas before drawing
-        ctx.clearRect(0, 0, can.width, can.height);    
-        
+        ctx.clearRect(0, 0, can.width, can.height);
+
         noise(ctx);
 
         // center of canvas
         let centerX = can.width / 2;
         let centerY = can.height / 2;
-        
+
         // scaled size
         let scaledW = overlayImage.width * Math.pow(SCALE_FACTOR, 2);
         let scaledH = overlayImage.height * Math.pow(SCALE_FACTOR, 2);
-        
+
         // center for drawing the image
         let imgX = -scaledW / 2;
         let imgY = -scaledH / 2;
@@ -92,13 +92,13 @@ function doServerStatic(img, can, shouldDrawStatic = () => true) {
         {
             ctx.globalCompositeOperation = "multiply";
             ctx.filter = "grayscale(100%)";
-            
+
             ctx.translate(centerX, centerY);
             ctx.rotate(rotation);
-            
+
             ctx.drawImage(
                 overlayImage,
-                
+
                 imgX,
                 imgY,
                 scaledW,
@@ -112,21 +112,21 @@ function doServerStatic(img, can, shouldDrawStatic = () => true) {
         can.style.display = "";
         img.style.display = "none";
     }
-    
+
     frame();
 }
 
 function checkIfImageExists(url, callback) {
     const img = new Image();
     img.src = url;
-    
+
     if (img.complete) {
         callback(true);
     } else {
         img.onload = () => {
             callback(true);
         };
-        
+
         img.onerror = () => {
             callback(false);
         };
@@ -169,6 +169,7 @@ const serverList = [
 		ip: "play.oaktown.cc:51201",
 		game: "tf2",
 		overrideGame: "tf2classic"
+    },
     {
         id: "openFortress",
         name: "OAK TOWN | OPEN FORTRESS",
@@ -219,7 +220,7 @@ const serverList = [
         ip: "play.oaktown.cc:2303",
         game: "cod4"
     },
-    */ 
+    */
     /*
     {
         id: "minecraftAnarchy",
@@ -261,7 +262,7 @@ const serverList = [
         game: "sm64"
     },
     */
-  
+
 ];
 
 // list of Steam games
@@ -298,7 +299,7 @@ function serverButton(parent, content, href = "") {
     ret.style.width = "100%";
     ret.textContent = content;
     ret.draggable = false;
-    
+
     let isEmpty = !(href.trim());
 
     if (!isEmpty) {
@@ -342,25 +343,25 @@ function listServer(server) {
     const serverGame = server.overrideGame ? server.overrideGame : server.game;
     // REDCHANIT: motd handling
     const serverMotd = server.motd;
-    
+
     // jotting down now, displaying later
     const serverIp = server.ip;
     const serverOverrideMap = server.overrideMap;
     const serverDynmap = server.dynmap;
-    
+
     // create entry element
     const container = document.getElementById("servers");
     const serverElement = document.createElement("div");
     serverElement.id = serverId;
     serverElement.className = "server";
-    
+
     let shouldDrawStatic = { value: true };
-    
+
     // populate entry with temp info
     // REDCHANIT: hide server info button if motd doesn't exist
-    
+
     // server title div
-    
+
     let elTitle = document.createElement("div");
     elTitle.classList.add("serverTitle");
 
@@ -390,7 +391,7 @@ function listServer(server) {
     let elServerContent = document.createElement("div");
     elServerContent.classList.add("serverContent");
 
-    
+
     let elServerThumb = document.createElement("img");
     elServerThumb.classList.add("serverMap");
     elServerThumb.draggable = false;
@@ -409,7 +410,7 @@ function listServer(server) {
     elServerPlayers.classList.add("serverPlayers");
     elServerPlayers.innerHTML = `<b>Players:</b> <span id="param">---</span>`;
     elServerContent.appendChild(elServerPlayers);
-    
+
     // server buttons
     let elServerButtons = document.createElement("div");
     elServerButtons.classList.add("serverButtons");
@@ -429,9 +430,9 @@ function listServer(server) {
         elServerCanvas, // canvas
         () => shouldDrawStatic.value, // draw static
     );
-    
+
     container.appendChild(serverElement);
-    
+
     // fetch server data from api
 	if (server.game === 'sm64' || server.game === 'gtaiv') {
         // Generate fake data with game-specific values
@@ -444,7 +445,7 @@ function listServer(server) {
             serverIP: server.ip,
             humanData: []
         };
-        
+
         displayServerData(
             fakeData,
             server.id,
@@ -481,26 +482,26 @@ function displayServerData(data, serverId, serverGame, serverMotd, serverOverrid
     const serverMap = (serverOverrideMap ? serverOverrideMap : data.currentMap.replace(/^(?<=)game\/mp\/*/, ""));
     const canConnect = steamGames.includes(serverGame);
 
-    
+
     // set updated server info
     // server returned data, so it's online
     setStatusIndicator(serverElement.querySelector(".serverStatus"), true);
-    
+
     serverElement.querySelector(".serverStatus").classList.add("asyncImage");
     serverElement.querySelector(".serverMap").dataset.src = `${resources}/maps/${serverGame}/${serverMap}.png`;
-    
+
     serverElement.querySelector(".serverMapName #param").textContent = serverMap;
     serverElement.querySelector(".serverMapName").title = serverMap;
-    
+
     // server player list
     // only show the table if there are players
-    
+
 
     const playerListTable = data.humanData.length > 0 ?
     `${data.humanData.map(player => {
         return `${player.name}`;
     }).join("\n")}` : "";
-    
+
     // only show bots if there are any
     const numOfBots = data.numBots > 0 ? ` (${data.numBots} Bots)` : "";
     // player count, hovering when players are online shows a list
@@ -518,12 +519,12 @@ function displayServerData(data, serverId, serverGame, serverMotd, serverOverrid
         const numOfBots = data.numBots > 0 ? ` (${data.numBots} Bots)` : "";
         playerElement.textContent = `${data.numHumans}/${data.maxClients}${numOfBots}`;
         playersContainer.title = playerListTable;
-        
+
         if (data.numHumans > 0) {
             playersContainer.classList.add("tooltip");
         }
     }
-    
+
     // server buttons, done a little differently because of how dynamic they can be
     // servers that host a Steam game will replace the copy ip button with a connect button
     // REDCHANIT: hide server info button if motd doesn't exist
@@ -542,7 +543,7 @@ function displayServerData(data, serverId, serverGame, serverMotd, serverOverrid
                 "Because Javascript is stupid, it does not allow the website " +
                 "to copy text if you are on an insecure origin, so please copy " +
                 "the text below.",
-                
+
                 ip
             );
             return;
@@ -555,16 +556,16 @@ function displayServerData(data, serverId, serverGame, serverMotd, serverOverrid
 
     if (serverMotd)
         serverButton(serverButtons, "View MOTD", serverMotd);
-    
+
     // asynchronously load map images, not replacing if they can't be found
     (() => {
         "use strict";
         const mapElement = serverElement.querySelector(".serverMap");
-        
+
         let img = new Image();
         img.src = mapElement.dataset.src;
         let imageChecked = false;
-        
+
         img.onload = () => {
             const interval = () => {
                 if (!imageChecked)
