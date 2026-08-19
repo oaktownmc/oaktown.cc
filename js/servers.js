@@ -151,118 +151,32 @@ const serverList = [
         game: "hl2dm",
         overrideGame: "pf2"
     },
-    /*{
-        id: "tf2rf",
-        name: "OAK TOWN | Risk Fortress 2",
-        ip: "play.oaktown.cc:20024",
-        game: "tf2"
-    },*/
     {
         id: "teamFortress2",
-        name: "OAK TOWN | TF2",
-        ip: "play.oaktown.cc:27015",
+        name: "OAK TOWN | TF2 CASUAL",
+        ip: "play.oaktown.cc:20024",
         game: "tf2"
     },
-	{
-		id: "teamFortress2Classified",
-		name: "OAK TOWN | TEAM FORTRESS 2 CLASSIFIED",
-		ip: "play.oaktown.cc:51201",
-		game: "tf2",
-		overrideGame: "tf2classic"
+    {
+        id: "teamFortress2MVM",
+        name: "OAK TOWN | TF2 MANN VS MACHINE",
+        ip: "play.oaktown.cc:20026",
+        game: "tf2"
     },
     {
-        id: "openFortress",
-        name: "OAK TOWN | OPEN FORTRESS",
-        ip: "play.oaktown.cc:28465",
-        game: "hl2dm",
-        overrideGame: "of"
+        id: "teamFortress2Classified",
+        name: "OAK TOWN | TEAM FORTRESS 2 CLASSIFIED",
+        ip: "play.oaktown.cc:51201",
+        game: "tf2",
+        overrideGame: "tf2classic"
     },
-    /*{
-        id: "lfe",
-        name: "OAK TOWN | LAMBDA FORTRESS EXTENDED",
-        ip: "play.oaktown.cc:27312",
-        game: "hl2dm",
-        overrideGame: "lfe"
-    },
-    {
-        id: "garrysModjazz",
-        name: "OAK TOWN | JAZZSTRONAUTS",
-        ip: "45.20.117.13:27015",
-        game: "hl2dm",
-        overrideGame: "gmod"
-    },*/
-    {
-        id: "counterStrike",
-        name: "OAK TOWN | CSS",
-        ip: "play.oaktown.cc:27016",
-        game: "hl2dm",
-        overrideGame: "css"
-    },
-    /*
-    {
-        id: "halo",
-        name: "OAK TOWN | Halo Custom Edition",
-        ip: "play.oaktown.cc:2302",
-        game: "halo",
-        overrideGame: "halo"
-    },*/
     {
         id: "minecraftSurvival",
         name: "OAK TOWN | MINECRAFT SURVIVAL",
-        ip: "play.oaktown.cc:25572",
+        ip: "mc.oaktown.cc",
         overrideMap: "oaktown",
         game: "minecraft"
     },
-    /*
-    {
-        id: "cod4x",
-        name: "OAK TOWN | S & D",
-        ip: "play.oaktown.cc:2303",
-        game: "cod4"
-    },
-    */
-    /*
-    {
-        id: "minecraftAnarchy",
-        name: "OAK TOWN | ANARCHY",
-        ip: "play.oaktown.cc:25565",
-        overrideMap: "oaktown_anarchy",
-        game: "minecraft"
-    },*/
-    {
-        id: "minecraftAnarchy",
-        name: "OAK TOWN | MINECRAFT ANARCHY",
-        ip: "play.oaktown.cc:25124",
-        overrideMap: "ot_anarchy",
-        game: "minecraft"
-    },
-    /*
-    {
-        id: "minecraftCreate",
-        name: "OAK TOWN | CREATE MOD",
-        ip: "45.20.117.13:18754",
-        overrideMap: "oaktown_create",
-        game: "minecraft"
-    },*/
-    /*
-    {
-        id: "gtaIVConnected",
-        name: 'OAK TOWN | GTA IV CONNECTED',
-        ip: "play.oaktown.cc:22000",
-        overrideMap: "liberty_city",
-        game: "gtaiv"
-    },
-    */
-    /*
-    {
-        id: "sm64CoopDx",
-        name: "OAK TOWN | SM64COOPDX",
-        ip: "play.oaktown.cc:7777",
-        overrideMap: "mushroom_kingdom",
-        game: "sm64"
-    },
-    */
-
 ];
 
 // list of Steam games
@@ -279,6 +193,13 @@ const steamGames = [
     "svencoop",
     "gmod"
 ];
+
+// status of a server
+const Status = {
+    UP: "up",
+    DOWN: "down",
+    LOADING: "loading",
+};
 
 // general variables
 var resources = "/resources";
@@ -323,15 +244,23 @@ function serverStatusText(parent, content) {
     return ret;
 }
 
-function setStatusIndicator(element, online) {
-    if (online) {
-        element.src = `${resources}/status/online.png`;
-        element.alt = "[online]";
-        element.title = "This server is online, come on in!";
-    } else {
-        element.src = `${resources}/status/offline.png`;
-        element.alt = "[offline]";
-        element.title = "This server is offline, check back later!";
+function setStatusIndicator(element, statusType) {
+    switch (statusType) {
+        case Status.UP:
+            element.src = `${resources}/status/online.png`;
+            element.alt = "[online]";
+            element.title = "This server is online, come on in!";
+            break;
+        case Status.DOWN:
+            element.src = `${resources}/status/offline.png`;
+            element.alt = "[offline]";
+            element.title = "This server is offline, check back later!";
+            break;
+        case Status.LOADING:
+            element.src = `${resources}/status/offline.png`;
+            element.alt = "[loading]";
+            element.title = "Loading server data...";
+            break;
     }
 }
 
@@ -368,7 +297,7 @@ function listServer(server) {
 
     let elStatus = document.createElement("img");
     elStatus.classList.add("serverStatus");
-    setStatusIndicator(elStatus, false);
+    setStatusIndicator(elStatus, Status.LOADING);
     elStatus.draggable = false;
     elTitle.appendChild(elStatus);
 
@@ -475,17 +404,18 @@ function displayServerData(data, serverId, serverGame, serverMotd, serverOverrid
     if (data.error) {
         console.warn(`could not fetch data for ${server.game} server ${server.ip}.`);
         serverButtons.innerHTML = "";
+        setStatusIndicator(serverElement.querySelector(".serverStatus"), Status.DOWN);
         serverStatusText(serverButtons, "Could not reach server!");
         return;
     }
     // REDCHANIT: regex for quake3
-    const serverMap = (serverOverrideMap ? serverOverrideMap : data.currentMap.replace(/^(?<=)game\/mp\/*/, ""));
+    // using RegExp constructor because neovim would treat it as a comment for some reason
+    const serverMap = (serverOverrideMap ? serverOverrideMap : data.currentMap.replace(new RegExp("^(?<=)game\\/mp\\/*"), ""));
     const canConnect = steamGames.includes(serverGame);
-
 
     // set updated server info
     // server returned data, so it's online
-    setStatusIndicator(serverElement.querySelector(".serverStatus"), true);
+    setStatusIndicator(serverElement.querySelector(".serverStatus"), Status.UP);
 
     serverElement.querySelector(".serverStatus").classList.add("asyncImage");
     serverElement.querySelector(".serverMap").dataset.src = `${resources}/maps/${serverGame}/${serverMap}.png`;
