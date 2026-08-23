@@ -10,9 +10,6 @@
 
 <link rel="stylesheet" href="/css/theme.css"/>
 
-<script src="/widget/widget.js"></script>
-<script src="js/topnav.js"></script>
-
 <link rel="icon" type="image/png" href="/assets/oak.png">
 <title>oak town | ABOUT</title>
 </head>
@@ -20,11 +17,16 @@
 <!-- top nav -->
 <div class="topnav" id="navbar">
     <a class="topnavlogo" href="/"><img src="/assets/wordmark.png"></a>
-    <a class="topnavbutton" href="/">home</a>
-    <a class="topnavbutton" href="/servers.html">servers</a>
-    <a class="topnavbutton" href="/about.html">about</a>
-    <a class="topnavbutton" href="https://sb.oaktown.cc">sourcebans</a>
-    <a class="topnavbutton" href="https://chest.oaktown.cc">oak chest</a>
+    <div class="topnavbutton-container">
+        <a class="topnavbutton" href="/">home</a>
+        <a class="topnavbutton" href="/servers.html">servers</a>
+        <a class="topnavbutton" href="/about.html">about</a>
+        <a class="topnavbutton" href="https://sb.oaktown.cc">sourcebans</a>
+        <a class="topnavbutton" href="https://chest.oaktown.cc">oak chest</a>
+    </div>
+    <a class="topnavbutton" id="navMenuButton" href="javascript:;">$</a>
+
+    <script src="js/topnav.js"></script>
 </div>
 
 <div class="center-text" style="margin-inline: auto;">
