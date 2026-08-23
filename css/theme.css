@@ -1,438 +1,426 @@
-@import url(/css/fonts.css);
-@import url(/css/topnav.css);
+@import url("/css/fonts.css");
 
-:root {
-	--text-shadow: 1px 1px #000, 2px 2px #000;
-	--server-button-height: 38px;
-	--server-button-padding: 8px 24px;
-	--server-button-margin: 0 2px 0 2px;
-  --scrolling-container-height: 50px;
+@layer base, classes;
+
+@layer base {
+    body {
+        --topnav-bg-color: rgba(0 0 0 / 50%);
+        --topnav-bg-color-hover: rgb(255 255 255);
+        --topnav-height: 50px;
+
+        --text-shadow: 1px 1px #000, 2px 2px #000;
+
+        --server-color-highlight: color-mix(in oklab, var(--server-color), #fff);
+        --server-color: #4d4d4d;
+        --server-color-secondary: color-mix(in oklab, var(--server-color), #000);
+
+        --server-button-color-highlight: color-mix(in oklab, var(--server-button-color), #fff);
+        --server-button-color: #676767;
+        --server-button-color-secondary: color-mix(in oklab, var(--server-button-color), #000);
+        --server-button-height: 38px;
+        --server-button-padding: 8px 24px;
+        --server-button-margin: 0 2px 0 2px;
+
+        --scrolling-container-height: 50px;
+
+        margin: 0;
+        background-image: url("/assets/darkoak.png");
+    }
+
+    /* bad html default */
+    img {
+        display: block;
+    }
+
+    /* headers and stuff */
+    h6 {
+        color: #fff;
+        font-family: "TF2 Secondary";
+        font-size: 0.5em;
+    }
+
+    h2 {
+        color: #fff;
+        font-family: "TF2 Build";
+        font-size: 1em;
+    }
+
+    h3 {
+        color: #fff;
+        font-family: "TF2";
+    }
+
+    p,
+    ul,
+    li {
+        color: #fff;
+        font-family: "TF2";
+        font-size: medium;
+    }
+
+    h1 {
+        color: #fff;
+        font-family: "TF2 Build";
+    }
+
+    /* links */
+    a {
+        background-color: transparent;
+        text-decoration: none;
+    }
+
+    a:link {
+        color: green;
+    }
+
+    a:visited {
+        color: darkgreen;
+    }
+
+    a:hover {
+        color: yellow;
+    }
+
+    a:active {
+        color: gold;
+    }
 }
 
-body {
-  margin: 0;
-  background-image: url(/assets/darkoak.png);
-  overflow-x: hidden;
-}
-
-/* scrolling text */
-.scrolling {
-  height: var(--scrolling-container-height);
-  line-height: var(--scrolling-container-height);
-  text-align: center;
-
-  overflow: hidden;
-
-  background: #800000;
-  color: #fff;
-
-  font-family: tf2sec;
-}
-.scrolling marquee {
-  text-align: center;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-/* grid */
-.grid-container {
-  display: grid;
-  grid-template-columns: auto auto;
-  padding: 10px;
-}
-.grid-item-unmargin {
-  padding: 20px;
-  align-items: center;
-  justify-content: center;
-}
-.grid-item {
-  padding: 20px;
-  align-items: center;
-  justify-content: center;
-  margin: auto;
-}
-
-
-@media (max-width: 940px) {
-  .grid-container-mainpage {
-    grid-template-columns: 1fr;
-  }
-}
-
-
-/* headers and stuff */
-h6 {
-  color: #fff;
-  font-family: tf2sec;
-  font-size: 0.5em;
-}
-
-h2 {
-  color: #fff;
-  font-family: tf2build;
-  font-size: 1em;
-}
-
-h3 {
-  color: #fff;
-  font-family: tf2;
-}
-
-p,
-ul,
-li {
-  color: #fff;
-  font-family: tf2sec;
-  font-size: medium;
-}
-
-h1 {
-  color: #fff;
-  font-family: tf2build;
-}
-
-/*
-h1, h2, h3, h4, h5, h6 {
-  text-align: center;
-}
-*/
-
-/* unvisited link */
-a:link {
-  color: green;
-}
-
-/* visited link */
-a:visited {
-  color: rgb(0, 82, 0);
-}
-
-/* PAGE - SERVERS
-stolen from redchanit
-*/
-
-#servers {
-  /*display: flex;*/
-  display: grid;
-  grid-template-columns: auto auto;
-  justify-content: center;
-  align-items: center;
-  /*flex-wrap: wrap;*/
-}
-
-
-.server {
-  --margin: 5px;
-  position: relative;
-  height: 290px;
-  max-width: 320px;
-
-  margin: var(--margin);
-  padding: 8px;
-
-  display: inline-flex;
-  flex-direction: column;
-
-  background: linear-gradient(0deg, #79472a, #81613c);
-  color: #ffffff !important;
-
-  border-radius: 10px;
-  font-size: 20px;
-  box-sizing: border-box;
-}
-
-.server * {
-  box-sizing: border-box;
-}
-
-.server b {
-  text-decoration: unset;
-}
-
-.mobileOnly {
-  display: none;
-}
-
-@media (max-width: 465px) {
-
-  #servers {
-    grid-template-columns: 1fr;
-  }
-
-  .server {
-    /* center */
-    max-width: fit-content;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-}
-
-@media (max-width: 501px) {
-  .server {
-    width: calc(100% - var(--margin) * 2);
-  }
-}
-
-.gameMode .server {
-  width: 100% !important;
-}
-
-.serverTitle {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  text-shadow: 1px 1px #000000, 2px 2px #000000;
-  font-family: tf2build;
-}
-
-.serverStatus {
-  width: 16px;
-  height: 16px;
-  margin-right: 5px;
-}
-
-.serverGame {
-  min-width: 32px;
-  width: 32px;
-  min-height: 32px;
-  height: 32px;
-  margin-right: 10px;
-}
-
-.serverContent {
-  margin-top: 8px;
-  position: relative;
-  text-shadow: 1px 1px #000000, 2px 2px #000000;
-  font-family: tf2sec;
-}
-
-.serverMap {
-  max-width: 100%;
-  max-height: 190px;
-  border-radius: 5px;
-  opacity: 0.75;
-  mask-image: linear-gradient(to bottom, rgb(0, 0, 0), rgba(0, 0, 0, 0));
-  object-fit: cover;
-  vertical-align: top;
-  width: 100%;
-}
-
-.gameMode .serverMap {
-  width: 100% !important;
-}
-
-.serverMapName {
-  max-width: calc(100% - 16px);
-  position: absolute;
-  top: 3px;
-  left: 8px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.serverPlayers {
-  max-width: calc(100% - 16px);
-  position: absolute;
-  bottom: 8px;
-  left: 8px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.tooltip {
-  border-bottom: 2px dotted #ffffff;
-  margin-bottom: -2px;
-}
-
-.serverButtons {
-  display: flex;
-  align-items: center;
-}
-
-.serverButton {
-  display: inline-block;
-  
-  outline: 0;
-  border: 0;
-
-  cursor: pointer;
-  
-  height: var(--server-button-height);
-  padding: var(--server-button-padding);
-	margin: var(--server-button-margin);
-  
-  border-radius: 50px;
-  background-image: linear-gradient(0deg, #612400, #9c5f3c);
-  
-  box-shadow: 0 4px 11px 0 rgb(37 44 97 / 15%),
-  0 1px 3px 0 rgb(93 100 148 / 20%);
-  
-  transition: all 0.2s ease-out;
-  
-  font-family: tf2;
-  font-size: large;
-  font-weight: 600;
-  color: #fff;
-  
-  text-shadow: var(--text-shadow);
-	text-decoration: none;
-
-  user-select: none;
-}
-
-.serverButton:hover {
-  box-shadow: 0 8px 22px 0 rgb(37 44 97 / 15%),
-    0 4px 6px 0 rgb(93 100 148 / 20%);
-	text-shadow: 0px 0px 5px currentColor;
-}
-
-.serverButton:hover .info,
-.serverButton:hover .dynmap {
-	filter: drop-shadow(0px 0px 3px currentColor);
-}
-
-.serverButton:active {
-	filter: brightness(0.85);
-	transform: translateY(2px);
-}
-
-.serverButton:link {
-	color: rgb(255, 255, 255);
-}
-
-.serverStatusText {
-	font-family: tf2;
-	text-shadow: var(--text-shadow);
-
-	height: var(--server-button-height);
-	padding: var(--server-button-padding);
-	margin: var(--server-button-margin);
-	
-  text-align: center;
-	width: 100%;
-}
-
-.serverConnect {
-  width: 100%;
-  cursor: pointer;
-}
-
-.gameMode .serverConnect,
-.gameMode .serverDynmap {
-  display: none !important;
-}
-
-.serverInfo,
-.serverDynmap {
-  min-width: 40px;
-}
-
-.gameMode .serverInfo {
-  width: 100% !important;
-}
-
-@media (max-width: 850px) {
-  .serverInfo,
-  .serverDynmap {
-    width: 100% !important;
-  }
-}
-
-.info {
-  min-width: 24px;
-  min-height: 24px;
-  background: url(../images/info.png) no-repeat;
-  background-size: 24px;
-}
-
-.dynmap {
-  min-width: 24px;
-  min-height: 24px;
-  background: url(../images/dynmap.png) no-repeat;
-  background-size: 24px;
-}
-
-steam-group {
-  text-align: start;
-  display: block;
-  width: 510px;
-}
-
-@media (max-width: 465px) {
-  steam-group {
-    min-width: unset;
-    width: 350px;
-    min-height: 205px;
-    height: unset;
-  }
-}
-
-
-/* links */
-a {
-  background-color: transparent;
-  text-decoration: none;
-}
-
-a:link {
-  color: green;
-}
-
-a:visited {
-  color: darkgreen;
-}
-
-a:hover {
-  color: yellow;
-}
-
-a:active {
-  color: gold;
-}
-
-/* centers */
-.center-div {
-  max-width: fit-content;
-  margin-left: auto !important;
-  margin-right: auto !important;
-}
-.center-text {
-  text-align: center;
-}
-
-.oaktown-gif {
-  height: 200px;
-  width: auto;
-  display: block;
-  margin: 0 auto;
-}
-
-.discord-widget {
-  width: 350px;
-  height: 490px;
-  transition: all 0.3s ease;
-}
-
-@media screen and (max-width: 768px) {
-  .oaktown-gif {
-    height: 150px;
-    width: auto;
-  }
-  .discord-widget {
-    width: 300px;
-    height: 420px;
-  }
-  .mobileOnly {
-    display: block;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .discord-widget {
-    width: 260px;
-    height: 380px;
-  }
+@layer classes {
+    /* nav bar */
+    .topnav {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: var(--topnav-height);
+        background-color: var(--topnav-bg-color);
+    }
+
+    .topnavlogo {
+        padding: 10px;
+        max-width: 100%;
+    }
+
+    .topnavlogo:hover {
+        background-color: white;
+    }
+
+    .topnavlogo > img {
+        height: 100%;
+    }
+
+    .topnavbutton-container {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .topnavbutton {
+        padding-left: 10px;
+        padding-right: 10px;
+        align-content: center;
+        color: white;
+        font-family: "TF2 Build";
+    }
+
+    .topnavbutton:hover {
+        background-color: var(--topnav-bg-color-hover);
+        color: black;
+    }
+
+    #navMenuButton {
+        display: none;
+        margin-left: auto; /* put at end */
+        width: 25px;
+        font-family: "TF2"; /* has symbols */
+        font-size: 20pt;
+
+        text-align: center;
+    }
+
+    /* mobile */
+    @media (max-width: 655px) {
+        #navMenuButton {
+            display: block;
+        }
+
+        .topnavbutton-container {
+            flex-direction: column;
+            width: 100%;
+            position: absolute;
+            /* this is kinda dumb */
+            top: var(--topnav-height);
+        }
+
+        .topnavbutton-container > .topnavbutton {
+            background-color: var(--topnav-bg-color);
+            height: 40px;
+
+            /* above rule takes precedence over hover rule, so define it here */
+            &:hover {
+                background-color: var(--topnav-bg-color-hover);
+            }
+        }
+
+        :not(.showMobileMenu) > .topnavbutton-container {
+            display: none;
+        }
+    }
+
+    /* outage text */
+    .outage {
+        height: var(--outage-container-height);
+        line-height: var(--outage-container-height);
+        text-align: center;
+
+        overflow: hidden;
+
+        background: #800000;
+        color: #fff;
+
+        font-family: "TF2 Secondary";
+    }
+    .outage marquee {
+        text-align: center;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* oaktown gif */
+    .oaktown-gif {
+        max-width: 100%;
+    }
+
+    /* centers */
+    .center-div-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .center-text {
+        text-align: center;
+    }
+
+    /* discord widget */
+    .discord-widget {
+        width: 350px;
+        height: 490px;
+        transition: all 0.3s ease;
+    }
+
+    /* PAGE - SERVERS
+    stolen from redchanit
+     */
+
+    #servers {
+        display: flex;
+        grid-template-columns: auto auto;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .server {
+        --margin: 5px;
+        max-width: 320px;
+
+        margin: var(--margin);
+        padding: 8px;
+
+        display: inline-flex;
+        flex-direction: column;
+
+        background: linear-gradient(0deg,
+            var(--server-color-secondary),
+            var(--server-color),
+            var(--server-color) 95%,
+            var(--server-color-highlight));
+        color: #ffffff !important;
+
+        border-radius: 10px;
+        font-size: 20px;
+        box-sizing: border-box;
+    }
+
+    .server * {
+        box-sizing: border-box;
+    }
+
+    .server b {
+        text-decoration: unset;
+    }
+
+    .gameMode .server {
+        width: 100% !important;
+    }
+
+    .serverTitle {
+        display: flex;
+        height: 100%;
+        align-items: center;
+        text-shadow: 1px 1px #000000, 2px 2px #000000;
+        font-family: "TF2 Build";
+    }
+
+    .serverStatus {
+        width: 16px;
+        height: 16px;
+        margin-right: 5px;
+    }
+
+    .serverGame {
+        min-width: 32px;
+        width: 32px;
+        min-height: 32px;
+        height: 32px;
+        margin-right: 10px;
+    }
+
+    .serverContent {
+        margin-top: 8px;
+        position: relative;
+        text-shadow: 1px 1px #000000, 2px 2px #000000;
+        font-family: "TF2 Secondary";
+    }
+
+    /* static is a bit orange for some reason idk why */
+    .serverMap {
+        max-width: 100%;
+        max-height: 190px;
+        border-radius: 5px;
+        /*opacity: 0.75;*/
+        /*mask-image: linear-gradient(to bottom, rgb(0, 0, 0), rgba(0, 0, 0, 0))*/;
+        object-fit: cover;
+        vertical-align: top;
+        width: 100%;
+    }
+
+    .serverMapName {
+        max-width: calc(100% - 16px);
+        position: absolute;
+        top: 3px;
+        left: 8px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .serverPlayers {
+        max-width: calc(100% - 16px);
+        position: absolute;
+        bottom: 8px;
+        left: 8px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .tooltip {
+        border-bottom: 2px dotted #ffffff;
+        margin-bottom: -2px;
+    }
+
+    .serverButtons {
+        display: flex;
+        align-items: center;
+        margin-top: 5px;
+    }
+
+    .serverButton {
+        display: inline-block;
+
+        outline: 0;
+        border: 0;
+
+        cursor: pointer;
+
+        height: var(--server-button-height);
+        padding: var(--server-button-padding);
+        margin: var(--server-button-margin);
+
+        border-radius: 50px;
+        background: linear-gradient(0deg,
+            var(--server-button-color-secondary),
+            var(--server-button-color),
+            var(--server-button-color),
+            var(--server-button-color-highlight));
+
+        box-shadow: 0 4px 11px 0 rgb(37 44 97 / 15%),
+        0 1px 3px 0 rgb(93 100 148 / 20%);
+
+        transition: all 0.2s ease-out;
+
+        font-family: "TF2";
+        font-size: large;
+        font-weight: 600;
+        color: #fff;
+
+        text-shadow: var(--text-shadow);
+        text-decoration: none;
+
+        user-select: none;
+    }
+
+    .serverButton:hover {
+        box-shadow: 0 8px 22px 0 rgb(37 44 97 / 15%),
+        0 4px 6px 0 rgb(93 100 148 / 20%);
+        text-shadow: 0px 0px 5px currentColor;
+    }
+
+    .serverButton:hover .info,
+    .serverButton:hover .dynmap {
+        filter: drop-shadow(0px 0px 3px currentColor);
+    }
+
+    .serverButton:active {
+        transform: translateY(2px);
+        background: linear-gradient(0deg,
+            var(--server-button-color),
+            var(--server-button-color),
+            var(--server-button-color),
+            var(--server-button-color-secondary));
+    }
+
+    .serverButton:link {
+        color: rgb(255, 255, 255);
+    }
+
+    .serverStatusText {
+        font-family: "TF2";
+        text-shadow: var(--text-shadow);
+
+        height: var(--server-button-height);
+        padding: var(--server-button-padding);
+        margin: var(--server-button-margin);
+
+        text-align: center;
+        width: 100%;
+    }
+
+    .serverConnect {
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .gameMode .serverConnect,
+    .gameMode .serverDynmap {
+        display: none !important;
+    }
+
+    .serverInfo,
+    .serverDynmap {
+        min-width: 40px;
+    }
+
+    .gameMode .serverInfo {
+        width: 100% !important;
+    }
+
+    .info {
+        min-width: 24px;
+        min-height: 24px;
+        background: url(../images/info.png) no-repeat;
+        background-size: 24px;
+    }
 }

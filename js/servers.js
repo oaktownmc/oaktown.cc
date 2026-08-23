@@ -1,9 +1,9 @@
 
 /// Convert from degrees to radians.
-Math.radians = (degrees) => degrees * Math.PI / 180;
+const radians = (degrees) => degrees * Math.PI / 180;
 
 /// Convert from radians to degrees.
-Math.degrees = (radians) => radians * 180 / Math.PI;
+const degrees = (radians) => radians * 180 / Math.PI;
 
 // static canvas generator
 let overlayImage = new Image();
@@ -14,7 +14,7 @@ const SCALE_FACTOR = 0.45;
 
 // shouldDrawStatic is a function that returns a boolean
 function doServerStatic(img, can, shouldDrawStatic = () => true) {
-    const rotation = Math.random() * (Math.PI / 4) - Math.radians(45 / 2);
+    const rotation = Math.random() * (Math.PI / 4) - radians(45 / 2);
 
     can.width = WIDTH;
     can.height = HEIGHT;
@@ -24,7 +24,7 @@ function doServerStatic(img, can, shouldDrawStatic = () => true) {
 
     img.insertAdjacentElement("afterend", can);
 
-    let ctx = can.getContext("2d", { alpha: false });       // context without alpha channel.
+    let ctx = can.getContext("2d");       // context without alpha channel.
     let idata = ctx.createImageData(can.width, can.height); // create image data
     let buffer32 = new Uint32Array(idata.data.buffer);  // get 32-bit view
 
@@ -64,10 +64,10 @@ function doServerStatic(img, can, shouldDrawStatic = () => true) {
     }
 
     function frame() {
-        requestAnimationFrame(frame);
         if (!shouldDrawStatic()) {
             can.style.display = "none";
             img.style.display = "";
+            requestAnimationFrame(frame);
             return;
         }
 
@@ -111,9 +111,11 @@ function doServerStatic(img, can, shouldDrawStatic = () => true) {
 
         can.style.display = "";
         img.style.display = "none";
+
+        requestAnimationFrame(frame);
     }
 
-    frame();
+    requestAnimationFrame(frame);
 }
 
 function checkIfImageExists(url, callback) {

@@ -1,12 +1,12 @@
-function toggleMenu() {
-    const navbar = document.getElementById("navbar");
-    const menuIcon = document.getElementById("mobileMenu");
-  
-    navbar.classList.toggle("responsive");
-  
-    if (menuIcon.textContent === "$") {
-      menuIcon.textContent = "x";
+const navbar = document.querySelector("#navbar");
+const menuButton = document.querySelector("#navMenuButton");
+
+navMenuButton.addEventListener("click", () => {
+    navbar.classList.toggle("showMobileMenu");
+
+    if (navbar.classList.contains("showMobileMenu")) {
+        menuButton.textContent = "x";
     } else {
-      menuIcon.textContent = "$";
+        menuButton.textContent = "$";
     }
-}
+});
