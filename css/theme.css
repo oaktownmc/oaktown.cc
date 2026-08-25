@@ -149,6 +149,8 @@
             position: absolute;
             /* this is kinda dumb */
             top: var(--topnav-height);
+            /* this is also kinda dumb, i don't know why this was happening in the first place */
+            z-index: 10;
         }
 
         .topnavbutton-container > .topnavbutton {
