@@ -155,13 +155,13 @@ const serverList = [
     },
     {
         id: "teamFortress2",
-        name: "OAK TOWN | TF2 CASUAL",
+        name: "OAK TOWN | TF2 | CASUAL",
         ip: "play.oaktown.cc:20024",
         game: "tf2"
     },
     {
         id: "teamFortress2MVM",
-        name: "OAK TOWN | TF2 MANN VS MACHINE",
+        name: "OAK TOWN | TF2 | MANN VS MACHINE",
         ip: "play.oaktown.cc:20026",
         game: "tf2"
     },
