@@ -167,8 +167,15 @@ const serverList = [
     },
     {
         id: "teamFortress2Classified",
-        name: "OAK TOWN | TEAM FORTRESS 2 CLASSIFIED",
+        name: "OAK TOWN | TF2C | STANDARD",
         ip: "play.oaktown.cc:51201",
+        game: "tf2",
+        overrideGame: "tf2classic"
+    },
+    {
+        id: "teamFortress2ClassifiedRandomizer",
+        name: "OAK TOWN | TF2C | RANDOMIZER",
+        ip: "play.oaktown.cc:51203",
         game: "tf2",
         overrideGame: "tf2classic"
     },
